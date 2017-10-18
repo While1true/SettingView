@@ -217,7 +217,7 @@ public class SettingView extends RelativeLayout {
 
     private TextView creatTitleTextView() {
         TextView titleView = new TextView(getContext());
-        titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP,titlesize);
+        titleView.setTextSize(titlesize);
         titleView.setTextColor(titletextcolor);
         titleView.setGravity(Gravity.CENTER);
         LayoutParams layoutParams = generateParams();
@@ -239,7 +239,7 @@ public class SettingView extends RelativeLayout {
 
     private TextView creatSubTextView() {
         TextView titleView = new TextView(getContext());
-        titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP,subTextsize);
+        titleView.setTextSize(subTextsize);
         titleView.setTextColor(subTextcolor);
         titleView.setGravity(Gravity.CENTER);
         LayoutParams layoutParams = generateParams();

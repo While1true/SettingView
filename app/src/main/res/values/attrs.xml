@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SettingView">
-        <attr name="titlesize" format="float" />
+        <attr name="titlesize" format="dimension" />
         <attr name="titletextcolor" format="color" />
         <attr name="titletext" format="string" />
         <attr name="titleDrawable" format="reference" />
 
 
-        <attr name="subTextsize" format="float" />
+        <attr name="subTextsize" format="dimension" />
         <attr name="subTextcolor" format="color" />
         <attr name="subtitleText" format="string" />
         <attr name="subtitleDrawable" format="reference" />
