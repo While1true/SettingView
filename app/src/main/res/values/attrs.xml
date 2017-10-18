@@ -6,6 +6,8 @@
         <attr name="titletext" format="string" />
         <attr name="titleDrawable" format="reference" />
 
+        <attr name="drawablePadding" format="dimension" />
+
 
         <attr name="subTextsize" format="dimension" />
         <attr name="subTextcolor" format="color" />

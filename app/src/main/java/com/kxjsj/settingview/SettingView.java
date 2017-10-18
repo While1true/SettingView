@@ -57,6 +57,11 @@ public class SettingView extends RelativeLayout {
      */
     Switch aSwitch;
 
+    /**
+     * drawpadding
+     */
+    private int padding=5;
+
     public SettingView(@NonNull Context context) {
         this(context, null);
     }
@@ -80,6 +85,12 @@ public class SettingView extends RelativeLayout {
         if (color != 0) {
             titletextcolor = color;
         }
+
+        float padding = typedArray.getDimension(R.styleable.SettingView_drawablePadding, 0);
+        if(padding!=0){
+            this.padding= (int) padding;
+        }
+
         CharSequence text = typedArray.getText(R.styleable.SettingView_titletext);
         if (!TextUtils.isEmpty(text)) {
             setTitleText(text);
@@ -220,6 +231,7 @@ public class SettingView extends RelativeLayout {
         titleView.setTextSize(titlesize);
         titleView.setTextColor(titletextcolor);
         titleView.setGravity(Gravity.CENTER);
+        titleView.setCompoundDrawablePadding(padding);
         LayoutParams layoutParams = generateParams();
         layoutParams.addRule(CENTER_VERTICAL);
         layoutParams.addRule(ALIGN_PARENT_LEFT);
@@ -227,6 +239,19 @@ public class SettingView extends RelativeLayout {
         addView(titleView);
 
         return titleView;
+    }
+
+    public SettingView setdrawPadding(int padding){
+        this.padding=padding;
+        if(titleView!=null){
+            titleView.setCompoundDrawablePadding(padding);
+        }
+        if(subTextView!=null){
+            subTextView.setCompoundDrawablePadding(padding);
+        }
+
+        return this;
+
     }
 
     public SettingView setRightImage(int res) {
@@ -241,6 +266,7 @@ public class SettingView extends RelativeLayout {
         TextView titleView = new TextView(getContext());
         titleView.setTextSize(subTextsize);
         titleView.setTextColor(subTextcolor);
+        titleView.setCompoundDrawablePadding(padding);
         titleView.setGravity(Gravity.CENTER);
         LayoutParams layoutParams = generateParams();
         layoutParams.addRule(CENTER_VERTICAL);
