@@ -1,4 +1,4 @@
-package com.kxjsj.settingview;
+package coms.pacs.pacs.Views;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import coms.pacs.pacs.R;
 
 
 /**
@@ -31,7 +32,7 @@ public class SettingView extends RelativeLayout {
      * 左边的titleview
      */
     TextView titleView;
-    private float titlesize =28;
+    private float titlesize =dp2px(16);
     private int titletextcolor = 0xff535353;
 
     /**
@@ -40,7 +41,7 @@ public class SettingView extends RelativeLayout {
      * @param context
      */
     TextView subTextView;
-    private float subTextsize =24;
+    private float subTextsize =dp2px(13);
     private int subTextcolor = 0xff535353;
 
     /**
@@ -60,7 +61,7 @@ public class SettingView extends RelativeLayout {
     /**
      * drawpadding
      */
-    private int padding=5;
+    private int padding=dp2px(5);
 
     public SettingView(@NonNull Context context) {
         this(context, null);
@@ -77,7 +78,7 @@ public class SettingView extends RelativeLayout {
 
     private void obtainAttras(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SettingView);
-        float aFloat = typedArray.getFloat(R.styleable.SettingView_titlesize, 0);
+        float aFloat = typedArray.getDimension(R.styleable.SettingView_titlesize, 0);
         if (aFloat != 0) {
             titlesize = aFloat;
         }
@@ -96,7 +97,7 @@ public class SettingView extends RelativeLayout {
             setTitleText(text);
         }
 
-        float aFloat2 = typedArray.getFloat(R.styleable.SettingView_subTextsize, 0);
+        float aFloat2 = typedArray.getDimension(R.styleable.SettingView_subTextsize, 0);
         if (aFloat2 != 0) {
             subTextsize = aFloat2;
         }
@@ -228,7 +229,7 @@ public class SettingView extends RelativeLayout {
 
     private TextView creatTitleTextView() {
         TextView titleView = new TextView(getContext());
-        titleView.setTextSize(titlesize);
+        titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX,titlesize);
         titleView.setTextColor(titletextcolor);
         titleView.setGravity(Gravity.CENTER);
         titleView.setCompoundDrawablePadding(padding);
@@ -264,7 +265,7 @@ public class SettingView extends RelativeLayout {
 
     private TextView creatSubTextView() {
         TextView titleView = new TextView(getContext());
-        titleView.setTextSize(subTextsize);
+        titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX,subTextsize);
         titleView.setTextColor(subTextcolor);
         titleView.setCompoundDrawablePadding(padding);
         titleView.setGravity(Gravity.CENTER);
