@@ -13,7 +13,8 @@
         <attr name="subTextcolor" format="color" />
         <attr name="subtitleText" format="string" />
         <attr name="subtitleDrawable" format="reference" />
-
+        <attr name="drawableSize" format="dimension" />
+        <attr name="imageSize" format="dimension" />
         <attr name="image" format="reference" />
 
         <attr name="showSwitch" format="boolean" />

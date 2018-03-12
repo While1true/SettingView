@@ -20,9 +20,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 
-
 /**
- *
  * @author ck
  * @date 2017/10/18
  */
@@ -31,7 +29,7 @@ public class SettingView extends RelativeLayout {
      * 左边的titleview
      */
     TextView titleView;
-    private float titlesize =28;
+    private float titlesize = dp2px(16);
     private int titletextcolor = 0xff535353;
 
     /**
@@ -40,7 +38,7 @@ public class SettingView extends RelativeLayout {
      * @param context
      */
     TextView subTextView;
-    private float subTextsize =24;
+    private float subTextsize = dp2px(13);
     private int subTextcolor = 0xff535353;
 
     /**
@@ -60,7 +58,10 @@ public class SettingView extends RelativeLayout {
     /**
      * drawpadding
      */
-    private int padding=5;
+    private int padding = dp2px(5);
+
+    private int drawableSize = 0;
+    private int imageSize = 0;
 
     public SettingView(@NonNull Context context) {
         this(context, null);
@@ -77,7 +78,7 @@ public class SettingView extends RelativeLayout {
 
     private void obtainAttras(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SettingView);
-        float aFloat = typedArray.getFloat(R.styleable.SettingView_titlesize, 0);
+        float aFloat = typedArray.getDimension(R.styleable.SettingView_titlesize, 0);
         if (aFloat != 0) {
             titlesize = aFloat;
         }
@@ -86,9 +87,18 @@ public class SettingView extends RelativeLayout {
             titletextcolor = color;
         }
 
+        int drawableSize = typedArray.getDimensionPixelSize(R.styleable.SettingView_drawableSize, 0);
+        if (drawableSize != 0) {
+            this.drawableSize = drawableSize;
+        }
+        int imageSize = typedArray.getDimensionPixelSize(R.styleable.SettingView_imageSize, 0);
+        if (drawableSize != 0) {
+            this.imageSize = imageSize;
+        }
+
         float padding = typedArray.getDimension(R.styleable.SettingView_drawablePadding, 0);
-        if(padding!=0){
-            this.padding= (int) padding;
+        if (padding != 0) {
+            this.padding = (int) padding;
         }
 
         CharSequence text = typedArray.getText(R.styleable.SettingView_titletext);
@@ -96,7 +106,7 @@ public class SettingView extends RelativeLayout {
             setTitleText(text);
         }
 
-        float aFloat2 = typedArray.getFloat(R.styleable.SettingView_subTextsize, 0);
+        float aFloat2 = typedArray.getDimension(R.styleable.SettingView_subTextsize, 0);
         if (aFloat2 != 0) {
             subTextsize = aFloat2;
         }
@@ -116,20 +126,20 @@ public class SettingView extends RelativeLayout {
 
         int resourceId1 = typedArray.getResourceId(R.styleable.SettingView_titleDrawable, 0);
         if (resourceId1 != 0) {
-           setTitledrawable(resourceId1,0,0,0);
+            setTitledrawable(resourceId1, 0, 0, 0);
         }
         int resourceId2 = typedArray.getResourceId(R.styleable.SettingView_subtitleDrawable, 0);
         if (resourceId2 != 0) {
-           setSubdrawable(0,0,resourceId2,0);
+            setSubdrawable(0, 0, resourceId2, 0);
         }
 
-        boolean show=typedArray.getBoolean(R.styleable.SettingView_showSwitch,false);
-        if(show) {
+        boolean show = typedArray.getBoolean(R.styleable.SettingView_showSwitch, false);
+        if (show) {
             setShowSwitch(true);
         }
         CharSequence text1 = typedArray.getText(R.styleable.SettingView_switchOnText);
         CharSequence text3 = typedArray.getText(R.styleable.SettingView_switchOffText);
-        if (!TextUtils.isEmpty(text1)&&!TextUtils.isEmpty(text3)) {
+        if (!TextUtils.isEmpty(text1) && !TextUtils.isEmpty(text3)) {
             setSwitchText(text1, text3);
         }
 
@@ -196,13 +206,14 @@ public class SettingView extends RelativeLayout {
         return this;
     }
 
-    public SettingView setShowSwitch(boolean show){
-            if (aSwitch == null) {
-                aSwitch = creatRightSwitch();
-            }
-            aSwitch.setVisibility(show?VISIBLE:GONE);
+    public SettingView setShowSwitch(boolean show) {
+        if (aSwitch == null) {
+            aSwitch = creatRightSwitch();
+        }
+        aSwitch.setVisibility(show ? VISIBLE : GONE);
         return this;
     }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public SettingView setSwitchText(CharSequence on, CharSequence off) {
         if (aSwitch == null) {
@@ -220,15 +231,18 @@ public class SettingView extends RelativeLayout {
             return null;
         }
         Drawable drawable = getResources().getDrawable(drawableRes);
-        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight()
-        );
+        if (drawableSize != 0)
+            drawable.setBounds(0, 0, drawableSize, drawableSize);
+        else
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight()
+            );
 
         return drawable;
     }
 
     private TextView creatTitleTextView() {
         TextView titleView = new TextView(getContext());
-        titleView.setTextSize(titlesize);
+        titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, titlesize);
         titleView.setTextColor(titletextcolor);
         titleView.setGravity(Gravity.CENTER);
         titleView.setCompoundDrawablePadding(padding);
@@ -241,12 +255,12 @@ public class SettingView extends RelativeLayout {
         return titleView;
     }
 
-    public SettingView setdrawPadding(int padding){
-        this.padding=padding;
-        if(titleView!=null){
+    public SettingView setdrawPadding(int padding) {
+        this.padding = padding;
+        if (titleView != null) {
             titleView.setCompoundDrawablePadding(padding);
         }
-        if(subTextView!=null){
+        if (subTextView != null) {
             subTextView.setCompoundDrawablePadding(padding);
         }
 
@@ -258,13 +272,18 @@ public class SettingView extends RelativeLayout {
         if (imageView == null) {
             imageView = creatRightImageView();
         }
+        if(imageSize!=0) {
+            ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
+            layoutParams.height=imageSize;
+            layoutParams.width=imageSize;
+        }
         imageView.setImageResource(res);
         return this;
     }
 
     private TextView creatSubTextView() {
         TextView titleView = new TextView(getContext());
-        titleView.setTextSize(subTextsize);
+        titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, subTextsize);
         titleView.setTextColor(subTextcolor);
         titleView.setCompoundDrawablePadding(padding);
         titleView.setGravity(Gravity.CENTER);
@@ -339,7 +358,7 @@ public class SettingView extends RelativeLayout {
         return aSwitch;
     }
 
-    private int dp2px(float dp){
-        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,dp,getResources().getDisplayMetrics())+0.5f);
+    private int dp2px(float dp) {
+        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics()) + 0.5f);
     }
 }
