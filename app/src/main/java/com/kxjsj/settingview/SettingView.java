@@ -92,7 +92,7 @@ public class SettingView extends RelativeLayout {
             this.drawableSize = drawableSize;
         }
         int imageSize = typedArray.getDimensionPixelSize(R.styleable.SettingView_imageSize, 0);
-        if (drawableSize != 0) {
+        if (imageSize != 0) {
             this.imageSize = imageSize;
         }
 
@@ -242,7 +242,7 @@ public class SettingView extends RelativeLayout {
 
     private TextView creatTitleTextView() {
         TextView titleView = new TextView(getContext());
-        titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, titlesize);
+        titleView.setTextSize(titlesize);
         titleView.setTextColor(titletextcolor);
         titleView.setGravity(Gravity.CENTER);
         titleView.setCompoundDrawablePadding(padding);
